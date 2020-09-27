@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Col, Alert } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import styled from "styled-components";
 import "./styles.css";
+
+const MyAlert = styled(Alert)`
+  margin-top: 10px;
+`;
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -44,7 +49,7 @@ const App = () => {
               onChange={handleChange}
             />
             {errors.email ? (
-              <Alert variant="danger">{errors.email}</Alert>
+              <MyAlert variant="danger">{errors.email}</MyAlert>
             ) : null}
           </Form.Group>
         </Col>
@@ -59,7 +64,7 @@ const App = () => {
               onChange={handleChange}
             />
             {errors.password ? (
-              <Alert variant="danger">{errors.password}</Alert>
+              <MyAlert variant="danger">{errors.password}</MyAlert>
             ) : null}
           </Form.Group>
         </Col>
@@ -75,7 +80,9 @@ const App = () => {
               placeholder="Name"
               onChange={handleChange}
             />
-            {errors.name ? <Alert variant="danger">{errors.name}</Alert> : null}
+            {errors.name ? (
+              <MyAlert variant="danger">{errors.name}</MyAlert>
+            ) : null}
           </Form.Group>
         </Col>
         <Col>
@@ -89,7 +96,7 @@ const App = () => {
               onChange={handleChange}
             />
             {errors.number ? (
-              <Alert variant="danger">{errors.number}</Alert>
+              <MyAlert variant="danger">{errors.number}</MyAlert>
             ) : null}
           </Form.Group>
         </Col>
@@ -106,7 +113,7 @@ const App = () => {
               onChange={handleChange}
             />
             {errors.address ? (
-              <Alert variant="danger">{errors.address}</Alert>
+              <MyAlert variant="danger">{errors.address}</MyAlert>
             ) : null}
           </Form.Group>
         </Col>
@@ -116,12 +123,12 @@ const App = () => {
           <Form.Check
             type="checkbox"
             name="isAccept"
-            label="isAccept"
+            label="Accept Terms & Conditions"
             value={values.isAccept}
             onChange={handleChange}
           />
           {errors.isAccept ? (
-            <Alert variant="danger">{errors.isAccept}</Alert>
+            <MyAlert variant="danger">{errors.isAccept}</MyAlert>
           ) : null}
         </Form.Group>
       </Form.Row>
