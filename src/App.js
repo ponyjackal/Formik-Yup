@@ -4,13 +4,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./styles.css";
 
-const validateSchema = Yup.object().shape({
-  name: Yup.string().required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().min(8, "Too short").required("Required"),
-  address: Yup.string().required("Required"),
-  number: Yup.string().min(10).required("Required"),
-  isAccept: Yup.boolean()
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().min(8, "Too short").required("Password is required"),
+  address: Yup.string().required("Address is rquired"),
+  number: Yup.string().min(10).required("Number is required"),
+  isAccept: Yup.bool().oneOf([true], "Accept Terms & Conditions is required")
 });
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
       password: "",
       isAccept: false
     },
-    validateSchema,
+    validationSchema,
     onSubmit: (values) => {
       console.log(values);
       console.log(errors);
@@ -43,8 +43,8 @@ const App = () => {
               placeholder="Email"
               onChange={handleChange}
             />
-            {errors.name ? (
-              <Alert variant="warning">{errors.name}</Alert>
+            {errors.email ? (
+              <Alert variant="danger">{errors.email}</Alert>
             ) : null}
           </Form.Group>
         </Col>
@@ -58,6 +58,9 @@ const App = () => {
               placeholder="Password"
               onChange={handleChange}
             />
+            {errors.password ? (
+              <Alert variant="danger">{errors.password}</Alert>
+            ) : null}
           </Form.Group>
         </Col>
       </Form.Row>
@@ -72,6 +75,7 @@ const App = () => {
               placeholder="Name"
               onChange={handleChange}
             />
+            {errors.name ? <Alert variant="danger">{errors.name}</Alert> : null}
           </Form.Group>
         </Col>
         <Col>
@@ -84,6 +88,9 @@ const App = () => {
               placeholder="Number"
               onChange={handleChange}
             />
+            {errors.number ? (
+              <Alert variant="danger">{errors.number}</Alert>
+            ) : null}
           </Form.Group>
         </Col>
       </Form.Row>
@@ -98,6 +105,9 @@ const App = () => {
               placeholder="Address"
               onChange={handleChange}
             />
+            {errors.address ? (
+              <Alert variant="danger">{errors.address}</Alert>
+            ) : null}
           </Form.Group>
         </Col>
       </Form.Row>
@@ -110,6 +120,9 @@ const App = () => {
             value={values.isAccept}
             onChange={handleChange}
           />
+          {errors.isAccept ? (
+            <Alert variant="danger">{errors.isAccept}</Alert>
+          ) : null}
         </Form.Group>
       </Form.Row>
       <Button variant="primary" type="submit" onClick={handleSubmit}>
